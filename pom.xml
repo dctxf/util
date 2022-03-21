@@ -44,6 +44,14 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>dctmz-util</id>
+			<name>dctmz's utils</name>
+			<url>https://github.com/dctxf/util/maven-repo/</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
