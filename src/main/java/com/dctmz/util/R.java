@@ -1,14 +1,12 @@
 package com.dctmz.util;
 
-import java.io.Serializable;
-
 import com.alibaba.fastjson.JSONObject;
-
-import org.springframework.http.HttpStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+import java.io.Serializable;
 
 /**
  * 接口返回数据格式
@@ -47,7 +45,7 @@ public class R<T> implements Serializable {
    */
   private long timestamp = System.currentTimeMillis();
 
-  public static R<Object> ok() {
+  public static R<String> ok() {
     return setResult(true, HttpStatus.OK.value(), "success", "");
   }
 
@@ -56,29 +54,29 @@ public class R<T> implements Serializable {
 
   }
 
-  public static R<Object> error403(String message) {
+  public static R<String> error403(String message) {
     return setResult(false, HttpStatus.FORBIDDEN.value(), message, "");
   }
 
-  public static R<Object> error() {
+  public static R<String> error() {
     return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "error", "");
   }
 
-  public static R<Object> error(String msg) {
+  public static R<String> error(String msg) {
     return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, "");
   }
 
   /**
    * 无权限访问返回结果
    */
-  public static R<Object> noAuth() {
+  public static R<String> noAuth() {
     return setResult(false, HttpStatus.UNAUTHORIZED.value(), "没有权限！", "");
   }
 
   /**
    * 无权限访问返回结果
    */
-  public static R<Object> noAuth(String msg) {
+  public static R<String> noAuth(String msg) {
     return setResult(false, HttpStatus.UNAUTHORIZED.value(), msg, "");
   }
 
