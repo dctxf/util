@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 class UtilApplicationTests {
 
 	@Test
-	void testR(){
+	void testR() {
 		System.out.println(R.ok());
 		System.out.println(R.ok("ok"));
 		System.out.println(R.ok(new R<>()));
