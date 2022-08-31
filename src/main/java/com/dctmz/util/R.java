@@ -1,12 +1,11 @@
 package com.dctmz.util;
 
-import com.alibaba.fastjson.JSONObject;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+
 import org.springframework.http.HttpStatus;
 
-import java.io.Serializable;
+import cn.hutool.json.JSONUtil;
+import lombok.Data;
 
 /**
  * 接口返回数据格式
@@ -14,8 +13,6 @@ import java.io.Serializable;
  * @author dctxf
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class R<T> implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -45,8 +42,12 @@ public class R<T> implements Serializable {
    */
   private long timestamp = System.currentTimeMillis();
 
-  public static R<String> ok() {
-    return setResult(true, HttpStatus.OK.value(), "success", "");
+  public R() {
+
+  }
+
+  public static R<Object> ok() {
+    return setResult(true, HttpStatus.OK.value(), "success", null);
   }
 
   public static <T> R<T> ok(T data) {
@@ -54,30 +55,30 @@ public class R<T> implements Serializable {
 
   }
 
-  public static R<String> error403(String message) {
-    return setResult(false, HttpStatus.FORBIDDEN.value(), message, "");
+  public static R<Object> error403(String message) {
+    return setResult(false, HttpStatus.FORBIDDEN.value(), message, null);
   }
 
-  public static R<String> error() {
-    return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "error", "");
+  public static R<Object> error() {
+    return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "error", null);
   }
 
-  public static R<String> error(String msg) {
-    return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, "");
+  public static R<Object> error(String msg) {
+    return setResult(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, null);
   }
 
   /**
    * 无权限访问返回结果
    */
-  public static R<String> noAuth() {
-    return setResult(false, HttpStatus.UNAUTHORIZED.value(), "没有权限！", "");
+  public static R<Object> noAuth() {
+    return setResult(false, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), null);
   }
 
   /**
    * 无权限访问返回结果
    */
   public static R<String> noAuth(String msg) {
-    return setResult(false, HttpStatus.UNAUTHORIZED.value(), msg, "");
+    return setResult(false, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), msg);
   }
 
   public static <T> R<T> setResult(boolean success, Integer code, String message, T data) {
@@ -92,8 +93,7 @@ public class R<T> implements Serializable {
   }
 
   public String toJSONString() {
-    return JSONObject.toJSONString(this);
-
+    return JSONUtil.toJsonStr(this);
   }
 
 }
